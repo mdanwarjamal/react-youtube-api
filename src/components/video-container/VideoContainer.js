@@ -84,7 +84,7 @@ export default class VideoContainer extends Component {
                         )
         )
         return (
-            <Grid style={{width:"95%",marginTop:"100px"}}>
+            <Grid style={{width:"95%",marginTop:"150px"}}>
               <Row>
                   <Col md={12} lg={7}> 
                   <Video videoId={this.state.videoId} snippet={this.state.videoSnippet}/>
