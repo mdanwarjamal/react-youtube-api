@@ -81,7 +81,7 @@ export default class Home extends Component {
                         )
         )
         return (
-            <Grid style={{width:"95%",marginTop:"100px"}}>
+            <Grid style={{width:"95%",marginTop:"150px"}}>
                 <Row>
                 <div className="container">
                     <div className="jumbotron">
