@@ -9,7 +9,9 @@ import Footer from "./components/footer/Footer"
 
 const App = () =>{
   const CREDENTIALS = {
-    API_KEY:"AIzaSyDm2LhEBnHRRsT_CMfoCjxg2zSFGhhQIwA",
+//     API_KEY:"AIzaSyDm2LhEBnHRRsT_CMfoCjxg2zSFGhhQIwA",
+    API_KEY:"AIzaSyD9yRDU-L2nGi63VKCJkslYjCRQXlnL_Ic",
+    
     MAX_RES:20,
     ORDER_BY:"relevance"
   }
