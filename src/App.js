@@ -1,55 +1,45 @@
-import React, { Component } from 'react';
+import React, { useState } from "react"
 
-import {BrowserRouter,Route} from "react-router-dom";
+import {BrowserRouter,Route} from "react-router-dom"
 
-import './App.css';
+import Navbar from "./components/navbar/Navbar"
+import Home from "./components/home/Home"
+import VideoContainer from "./components/video_container/VideoContainer"
+import Footer from "./components/footer/Footer"
 
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
-import VideoContainer from './components/video-container/VideoContainer';
-import Home from './components/home/Home';
-
-class App extends Component{
-  state = {
-    API_KEY:"AIzaSyDm2LhEBnHRRsT_CMfoCjxg2zSFGhhQIwA",
+const App = () =>{
+  const CREDENTIALS = {
+//     API_KEY:"AIzaSyDm2LhEBnHRRsT_CMfoCjxg2zSFGhhQIwA",
+    API_KEY:"AIzaSyD9yRDU-L2nGi63VKCJkslYjCRQXlnL_Ic",
+    
     MAX_RES:20,
-    ORDER_BY:"relevance",
-    query_text:"TCS"
+    ORDER_BY:"relevance"
   }
-  handleChange=(event)=>{
-    this.setState({
-        query_text:event.target.value
-    })
-  }
-  handleSubmit=(event)=>{
+  const [query,setQuery] = useState('Dragon Ball Super')
+  const handleChange = (event) => setQuery(event.target.value)
+  const handleSubmit=(event)=>{
     event.preventDefault();
-    this.setState({
-        query_text:event.target.value
-    })
+    setQuery(event.target.value)
   }
-  render(){
-    return (
-      <div>
-        <BrowserRouter>
-          <Navbar handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
-          <Route exact path="/" component={(props)=>
-              <Home {...props}
-              API_KEY={this.state.API_KEY} 
-              MAX_RES={this.state.MAX_RES} 
-              QUERY={this.state.query_text} 
-              ORDER_BY={this.state.ORDER_BY} />
-          }/>
-          <Route exact path="/videos" component={(props)=>
-              <VideoContainer {...props}
-              API_KEY={this.state.API_KEY} 
-              MAX_RES={this.state.MAX_RES} 
-              QUERY={this.state.query_text} 
-              ORDER_BY={this.state.ORDER_BY} />
-          }/>
-          <Footer />
-        </BrowserRouter>
-      </div>
-    );
-  }
+  return(
+    <>
+      <BrowserRouter>
+        <Navbar handleChange={handleChange} handleSubmit={handleSubmit}/>
+        <Route exact path="/" component={(props)=>
+            <Home {...props}
+              CREDENTIALS={CREDENTIALS}
+              query={query} 
+            />
+        }/>
+        <Route exact path="/videos" component={(props)=>
+            <VideoContainer {...props}
+              CREDENTIALS={CREDENTIALS}
+              query={query}
+            />
+        }/>
+        <Footer />
+      </BrowserRouter>
+    </>
+  )
 }
-export default App;
+export default App
