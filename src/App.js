@@ -18,8 +18,8 @@ const App = () =>{
   const [query,setQuery] = useState('Dragon Ball Super')
   const handleChange = (event) => setQuery(event.target.value)
   const handleSubmit=(event)=>{
-    event.preventDefault();
     setQuery(event.target.value)
+    event.preventDefault()
   }
   return(
     <>
