@@ -13,25 +13,29 @@ const VideoContainer = (props) => {
     const [videoId,setVideoId] = useState("")
     const [videoSnippet,setVideoSnippet] = useState({})
     const [fromHome,setFromHome] = useState(false)
-    const [count,setCount] = useState(0)
     useEffect(()=>{
         if(props.location.state){
             setFromHome(props.location.state.fromHome)
             setVideoList(props.location.state.videoList)
             setVideoId(props.location.state.videoId)
             setVideoSnippet(props.location.state.videoSnippet)
-            setCount(1)
        }else{
             Axios.get(`https://www.googleapis.com/youtube/v3/search?key=${props.CREDENTIALS.API_KEY}&q=${props.query}&part=snippet,id&order=${props.CREDENTIALS.ORDER_BY}&maxResults=${props.CREDENTIALS.MAX_RES}&safeSearch=strict&type=video`)
             .then(response=>setVideoList(response.data.items))
             .catch(error=>setError(true))
         }
-    },[props])
+    },[])
+    useEffect(()=>{
+        Axios.get(`https://www.googleapis.com/youtube/v3/search?key=${props.CREDENTIALS.API_KEY}&q=${props.query}&part=snippet,id&order=${props.CREDENTIALS.ORDER_BY}&maxResults=${props.CREDENTIALS.MAX_RES}&safeSearch=strict&type=video`)
+        .then(response=>{
+            setVideoList(response.data.items)
+        })
+        .catch(error=>setError(true))
+    },[props.query])
     const handleVideoSelection=(returnId,vidSnippet)=>{
         Axios.get(`https://www.googleapis.com/youtube/v3/search?key=${props.CREDENTIALS.API_KEY}&part=snippet&maxResults=${props.CREDENTIALS.MAX_RES}&type=video&relatedToVideoId=${returnId}`)
             .then(response=>{
                 setVideoList(response.data.items)
-                setCount(0)
             })
             .catch(error=>setError(true))
         setVideoId(returnId)
@@ -42,7 +46,7 @@ const VideoContainer = (props) => {
             videoList.map((video,i)=>{
                 return(
                     <VideoList key={i} videoId={
-                        (fromHome && count === 1)? video.id : video.id.videoId
+                        (fromHome)? video.id : video.id.videoId
                     } videoSnippet={video.snippet} handleVideoSelection={handleVideoSelection}/>
                 )
             })

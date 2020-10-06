@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import {BrowserRouter,Route} from "react-router-dom"
+import {BrowserRouter,Route, Switch} from "react-router-dom"
 
 import Navbar from "./components/navbar/Navbar"
 import Home from "./components/home/Home"
@@ -9,7 +9,6 @@ import Footer from "./components/footer/Footer"
 
 const App = () =>{
   const CREDENTIALS = {
-//     API_KEY:"AIzaSyDm2LhEBnHRRsT_CMfoCjxg2zSFGhhQIwA",
     API_KEY:"AIzaSyD9yRDU-L2nGi63VKCJkslYjCRQXlnL_Ic",
     
     MAX_RES:20,
@@ -25,18 +24,20 @@ const App = () =>{
     <>
       <BrowserRouter>
         <Navbar handleChange={handleChange} handleSubmit={handleSubmit}/>
-        <Route exact path="/" component={(props)=>
-            <Home {...props}
-              CREDENTIALS={CREDENTIALS}
-              query={query} 
-            />
-        }/>
-        <Route exact path="/videos" component={(props)=>
-            <VideoContainer {...props}
-              CREDENTIALS={CREDENTIALS}
-              query={query}
-            />
-        }/>
+        <Switch>
+          <Route exact path="/" component={(props)=>
+              <Home {...props}
+                CREDENTIALS={CREDENTIALS}
+                query={query} 
+              />
+          }/>
+          <Route exact path="/videos" component={(props)=>
+              <VideoContainer {...props}
+                CREDENTIALS={CREDENTIALS}
+                query={query}
+              />
+          }/>
+        </Switch>
         <Footer />
       </BrowserRouter>
     </>

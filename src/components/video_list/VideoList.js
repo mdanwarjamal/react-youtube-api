@@ -8,13 +8,11 @@ const VideoList = ({videoId,videoSnippet,handleVideoSelection}) => {
         var vidSnippet=videoSnippet;
         handleVideoSelection(vidId,vidSnippet);
     }
-    // const {description,title,channelTitle} = videoSnippet
-    const url = videoSnippet.thumbnails.high.url
     return (
         <Grid>
             <Row onClick={handleClick}>
                 <Col xs={6}>
-                <img src={url} className="card-img-top" alt={videoSnippet.description} />
+                <img src={videoSnippet.thumbnails.high.url} className="card-img-top" alt={videoSnippet.description} />
                 </Col>
                 <Col xs={6} >
                     <h6>{videoSnippet.title}</h6>

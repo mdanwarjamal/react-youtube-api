@@ -17,7 +17,7 @@ const Home = ({CREDENTIALS,query}) => {
         Axios.get(`https://www.googleapis.com/youtube/v3/videos?key=${CREDENTIALS.API_KEY}&part=snippet&chart=mostPopular&maxResults=${CREDENTIALS.MAX_RES}&regionCode=IN`)
         .then(response=>setVideoList(response.data.items))
         .catch(error=>setError(true)) 
-    },[CREDENTIALS])
+    },[])
     const handleSelection=(vid,snip,title)=>{
         setRedirect(true)
         setVideoId(vid)
@@ -37,9 +37,9 @@ const Home = ({CREDENTIALS,query}) => {
     }
     const videos = videoList.length?
     (
-        videoList.map((video,i)=>{
+        videoList.map(video=>{
             return(
-            <Col key={i} xs={12} md={6} lg={4} onClick={
+            <Col key={video.id} xs={12} md={6} lg={4} onClick={
                     ()=>{
                         var vid=video.id;
                         var snip=video.snippet;
